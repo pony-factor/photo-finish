@@ -29,6 +29,19 @@ class EditPlan:
     roles: dict[str, str]
     shots: list[Shot]
 
+    @classmethod
+    def load(cls, filename: str | Path) -> "EditPlan":
+        """Load a user-editable cut plan for re-rendering."""
+        data = json.loads(Path(filename).read_text(encoding="utf-8"))
+        shots = [Shot(**item) for item in data["shots"]]
+        plan = cls(float(data["duration"]), str(data["audio"]),
+                   str(data["main_camera"]),
+                   {str(k): float(v) for k, v in data["offsets"].items()},
+                   {str(k): str(v) for k, v in data["roles"].items()},
+                   shots)
+        validate_shots(shots, plan.duration)
+        return plan
+
     def save(self, filename: str | Path) -> None:
         payload = {
             "duration": self.duration,
