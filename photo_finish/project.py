@@ -63,6 +63,8 @@ def load_project(manifest: str | Path) -> Project:
     if len({cam.name for cam in cameras}) != len(cameras):
         raise ValueError("Camera names must be unique")
     slides = _source(data["slides"], manifest.parent, 0, slides=True) if data.get("slides") is not None else None
+    if slides and slides.name in {camera.name for camera in cameras}:
+        raise ValueError("Slides source name must differ from camera names")
     return Project(audio, cameras, slides)
 
 
