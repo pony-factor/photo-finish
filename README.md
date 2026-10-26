@@ -8,6 +8,40 @@ camera framing, visible faces, and movement, then switches views while preservin
 every spoken word, filler, and pause. It's designed for *one speaker filmed from
 multiple angles*, not round-robin switching between people.
 
+## Product vision and roadmap
+
+Photo Finish is designed as an **AI camera director for a single seminar presenter**:
+give it any number of cameras (three is only an illustration), a continuous
+lavalier microphone recording, and **optionally** a slides video or slide deck.
+It should automatically classify viewpoints, align every recording to the
+microphone, recognize expressive delivery and gestures, and select visually
+composed camera angles. It should return to the main/front camera for emphasis
+and use restrained, smoothly reframed side shots during extended explanations.
+Slides can appear as full-screen or combined presenter/slide compositions when
+helpful.
+
+**Editing the picture is not editing the words:** no transcription, speaker
+diarization, filler-word cuts, silence deletion, or forced shortening. The entire
+lavalier recording must remain continuous across every video cut.
+
+The present `main` implementation (v0.1 prototype) provides a Python/FFmpeg
+CLI and **heuristic** editing, not a fully trained cinematic AI director or a
+graphical editor. See the [detailed, issue-linked roadmap](docs/ROADMAP.md) for
+what is implemented, what is missing, design constraints, tests and release gates.
+
+| Planned stage | What it delivers | Tracked issues |
+| --- | --- | --- |
+| **v0.2 — Reliable foundations** | Verified audio preservation, timebase-aware camera ingestion, drift-corrected sync, open-source licensing | [#2](https://github.com/pony-factor/photo-finish/issues/2), [#4](https://github.com/pony-factor/photo-finish/issues/4), [#3](https://github.com/pony-factor/photo-finish/issues/3), [#21](https://github.com/pony-factor/photo-finish/issues/21) |
+| **v0.3 — Performance intelligence** | Camera-angle classification, transcript-free vocal emphasis, pose/gesture tracking, look-ahead shot direction | [#5](https://github.com/pony-factor/photo-finish/issues/5)–[#8](https://github.com/pony-factor/photo-finish/issues/8) |
+| **v0.4 — Cinematic visuals** | Optional offline vision models, composed pans/zooms, cross-camera color matching | [#10](https://github.com/pony-factor/photo-finish/issues/10), [#9](https://github.com/pony-factor/photo-finish/issues/9), [#14](https://github.com/pony-factor/photo-finish/issues/14) |
+| **v0.5 — Slides and audio** | Optional PDF/PPTX/video slides, picture-in-picture, reversible lavalier restoration | [#11](https://github.com/pony-factor/photo-finish/issues/11)–[#13](https://github.com/pony-factor/photo-finish/issues/13) |
+| **v0.6 — Review/edit/export** | Drag-and-drop desktop studio, editable multicamera timeline and NLE interchange | [#15](https://github.com/pony-factor/photo-finish/issues/15)–[#17](https://github.com/pony-factor/photo-finish/issues/17) |
+| **v0.7–1.0 — Production quality** | Apple Silicon acceleration, resumable renders and realistic audiovisual/editorial QA | [#18](https://github.com/pony-factor/photo-finish/issues/18)–[#20](https://github.com/pony-factor/photo-finish/issues/20) |
+
+Each [feature issue](https://github.com/pony-factor/photo-finish/issues) includes
+scope, dependencies and testable acceptance criteria. Issues are proposed
+features, not promises of implementation or fixed release dates.
+
 ## Install
 
 Requires Python 3.10+, FFmpeg and ffprobe available on your PATH.
