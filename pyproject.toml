@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "photo-finish"
+version = "0.1.0"
+description = "Local, transcript-free multicamera directing for recorded presentations"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.26", "opencv-python-headless>=4.8"]
+
+[project.scripts]
+photo-finish = "photo_finish.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["photo_finish*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
